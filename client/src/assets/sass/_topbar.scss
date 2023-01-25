@@ -10,6 +10,7 @@
         align-items: center;
         justify-content: space-between;
         padding: 0px 35px;
+
         .topbarLeft{
             .topbarLogo{
                 font-weight: bold;
@@ -19,11 +20,14 @@
             }
         }
         .topbarRight{
-            display: flex;            
+            display: flex; 
+
             .topbarIcon{                
                 align-items: flex-start;
                 display: flex;
-                padding-left: 5px;
+                justify-content: flex-end;
+                padding-left: 15px;
+                
                 .topIconBadge{
                     width: 15px;
                     height: 15px;
