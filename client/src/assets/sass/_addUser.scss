@@ -1,0 +1,28 @@
+.userAddContainer{
+    margin-left: 20%;
+    padding-top: 75px;
+    padding-left: 20%;
+    padding-right: 20%;
+    text-align: center;
+
+    .userAddTitle{
+        padding: 20px;
+        h1{
+            font-size: 25px;
+            font-weight: 600;
+        }
+        p{  padding-top: 10px;
+            font-size: 11px;
+            color: gray;
+        }
+    }
+    .userAddCard{
+        -webkit-box-shadow: 0px 0px 18px -10px rgba(0, 0, 0, 0.75);
+        box-shadow: 0px 0px 18px -10px rgba(0, 0, 0, 0.75);
+    }
+    .conteainedButton{
+        display: block;
+        padding-top: 20px;
+        padding-bottom: 30px;
+    }
+}
