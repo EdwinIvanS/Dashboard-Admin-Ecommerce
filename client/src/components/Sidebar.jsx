@@ -45,7 +45,7 @@ export const Sidebar = () => {
           <div className="sidebarMenu">
             <h3 className="sidebarTitle">Quick Menú</h3>
             <ul className="sidebarList">
-              <Link to="/users" className="sidebarLink">
+              <Link to="/allUsers" className="sidebarLink">
                 <li className="sidebarListItem active">
                   <ManageAccountsIcon className="sidebarIcon" />
                   Users

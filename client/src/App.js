@@ -3,6 +3,7 @@ import { Sidebar } from "./components/Sidebar";
 import { Topbar } from "./components/Topbar";
 import Home from "./pages/Home";
 import UserAdd from "./pages/UserAdd";
+import AllUsers from "./pages/AllUsers"
 
 function App() {
   return (
@@ -12,10 +13,13 @@ function App() {
         <div className="section-app">
           <Sidebar />
           <Routes>
-            <Route path="/home" exact={true} element={<Home/>}></Route>
+            <Route path="/home" exact={true} element={<Home />}></Route>
           </Routes>
           <Routes>
-            <Route path="/addUser" exact={true} element={<UserAdd/>}></Route>
+            <Route path="/allUsers" exact={true} element={<AllUsers />}></Route>
+          </Routes>
+          <Routes>
+            <Route path="/addUser" exact={true} element={<UserAdd />}></Route>
           </Routes>
           <Routes>
             <Route
