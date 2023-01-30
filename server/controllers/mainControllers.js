@@ -6,23 +6,30 @@ const userSchema = require("../models/user");
 const mainController = {
   create: async (req, res) => {
     try {
-      const data = req.body; 
-      const register = await userSchema.create(...data, password);
-      console.log(register)
-      res.send({
-        status: 200,
-        body,
-      });
-    } catch (error) {
-      handleHtttpErrors.httpError(res, "INTERNAL_SERVER_ERROR", 500);
-    }
+      const { firstName, lastName, email, password } = req.body;
+      const validate = await userSchema.findOne({ email });
+      
+      if (validate === null) {
+        const encrypta = await encrypt(req.body.password);
+        const body = { firstName, lastName, email, password: encrypta };
+        const createUser = await userSchema.create(body);
+
+        res.send({ status: 200, createUser });
+
+      } else { handleHtttpErrors.httpError(res, "EXIST_EMAIL_REGISTER", 403) }
+    } catch (error) { handleHtttpErrors.httpError(res, "INTERNAL_SERVER_ERROR", 500) }
   },
+
   allUsers: async (req, res) => {
     try {
       const queryAll = await userSchema.find();
-      console.log(queryAll);
+      data = {
+        status: 200,
+        descripcion: "SUCCESSFUL_QUERY",
+        users: queryAll,
+      };
     } catch (error) {
-      
+      handleHtttpErrors.httpError(res, "INTERNAL_SERVER_ERROR", 500);
     }
   },
 };
