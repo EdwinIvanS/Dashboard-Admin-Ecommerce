@@ -11,7 +11,7 @@ export default function AllUsers() {
     { field: "firstName", headerName: "First name", width: 200 },
     { field: "lastName", headerName: "Last name", width: 200 },
     { field: "email", headerName: "Email", width: 200 },
-    { field: "action", headerName: "Action", width: 160 },
+    { field: "action", headerName: "Action", width: 160 }
   ];
 
   return (
@@ -22,6 +22,28 @@ export default function AllUsers() {
           columns={columns}
           pageSize={16}
           rowsPerPageOptions={[5]}
+          actions={[
+            {
+              icon: "edit",
+              tooltip: "Editar Artista",
+              //onClick: (event, rowData) =>
+                //seleccionarArtista(rowData, "Editar"),
+            },
+            {
+              icon: "delete",
+              tooltip: "Eliminar Artista",
+              //onClick: (event, rowData) =>
+                //seleccionarArtista(rowData, "Eliminar"),
+            },
+          ]}
+          options={{
+            actionsColumnIndex: -1,
+          }}
+          localization={{
+            header: {
+              actions: "Acciones",
+            },
+          }}
         />
       </div>
     </div>
