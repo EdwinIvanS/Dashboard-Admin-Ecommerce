@@ -13,3 +13,8 @@ export const serviceCreate = async (firstName, lastName, email, password) => {
     password: password,
   });
 };
+
+export const serviceAllUsers = async () => {
+  return await fetch(`http://localhost:3001/api/users`)
+  .then((consulta) => consulta.json());
+};

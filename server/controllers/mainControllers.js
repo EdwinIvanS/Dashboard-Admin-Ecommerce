@@ -11,15 +11,19 @@ const mainController = {
       const validate = await userSchema.findOne({ email });
 
       if (validate === null) {
+
         const encrypta = await encrypt(req.body.password);
         const body = { firstName, lastName, email, password: encrypta };
         const createUser = await userSchema.create(body);
+
         createUser.set("password", undefined, { strict: false });
+
         res.json({
           status: 200,
           descripcion: "CREATE_OK",
           createUser,
         });
+        
       } else {
         handleHtttpErrors.httpError(res, "EXIST_EMAIL_REGISTER", 403);
       }
