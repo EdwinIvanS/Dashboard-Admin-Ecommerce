@@ -7,9 +7,10 @@ import {
   Alert
 } from "@mui/material";
 import React, { useState } from "react";
+import { serviceCreate } from "../services/taskApi";
 
 export default function UserAdd() {
-  const [name, setName] = useState("");
+  const [firstName, setName] = useState("");
   const [lastName, setlastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,11 +30,11 @@ export default function UserAdd() {
 
   const [alert, setAlert] = useState(false);
 
-  const handleOnSubmit = (e) => {  
-    if(name===''){
-      setErrorName(true); 
+  const handleOnSubmit = async (e) => {      
+    if (firstName === "") {
+      setErrorName(true);
       setMsnErrorName("Campo obligatorio");
-    }else{
+    } else {
       setErrorName(false);
       setMsnErrorName("");
     }
@@ -58,31 +59,43 @@ export default function UserAdd() {
       setErrorPassword(true);
       setMsnErrorPassword("Campo obligatorio");
     } else {
-      setErrorPassword(false)
+      setErrorPassword(false);
       setMsnErrorPassword("");
     }
 
     if (passwordConfirm === "") {
       setErrorPasswordConfirm(true);
-      setMsnErrorPasswordC("Campo obligatorio");      
+      setMsnErrorPasswordC("Campo obligatorio");
     } else {
       if (passwordConfirm !== password) {
         setErrorPasswordConfirm(true);
         setMsnErrorPasswordC("No coincide el password");
-      }
-      else{
+      } else {
         setErrorPasswordConfirm(false);
         setMsnErrorPasswordC("");
-      }      
+      }
     }
 
-    if(name!=='' && lastName !== "" && email !== "" && password !== "" 
-                && passwordConfirm !== "" && passwordConfirm === password) {
-      setAlert(true);
+    if (
+      firstName !== "" &&
+      lastName !== "" &&
+      email !== "" &&
+      password !== "" &&
+      passwordConfirm !== "" &&
+      passwordConfirm === password
+    ){
+      try {
+        setAlert(true);
+        await serviceCreate(firstName, lastName, email, password);
+        
+      } catch (error) {
+        console.log(error);
+      } 
     }
     else{
       e.preventDefault();
     }
+      
   };
 
   return (
