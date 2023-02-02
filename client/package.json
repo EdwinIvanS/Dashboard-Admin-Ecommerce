@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@material-table/core": "^6.1.11",
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.6",
     "@mui/x-data-grid": "^5.17.21",
@@ -22,6 +23,7 @@
     "react-material-ui-form-validator": "^3.0.1",
     "react-router-dom": "^6.7.0",
     "react-scripts": "5.0.1",
+    "reactstrap": "^9.1.5",
     "recharts": "^2.3.2",
     "sass": "^1.57.1",
     "web-vitals": "^2.1.4",

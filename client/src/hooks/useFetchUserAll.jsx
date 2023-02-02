@@ -8,6 +8,7 @@ export const useFetchUserAll = () => {
   useEffect(() => {
     serviceAllUsers().then((resultado) => {
       let array = [];
+      console.log(resultado);
       resultado.users?.forEach((e) => {
         let consulta = {
           id: e._id,

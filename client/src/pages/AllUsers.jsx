@@ -1,51 +1,56 @@
 import React from "react";
-import { DataGrid } from "@mui/x-data-grid";
-import { useFetchUserAll  } from "../hooks/useFetchUserAll";
+import { useFetchUserAll } from "../hooks/useFetchUserAll";
+import "bootstrap/dist/css/bootstrap.css";
+import { Table, Container } from "reactstrap";
+import DeleteIcon from "@mui/icons-material/Delete";
+import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
+import Button from '@mui/material/Button'
 
 export default function AllUsers() {
-
   const { rows } = useFetchUserAll();
-
-  const columns = [
-    { field: "id", headerName: "ID_Creation", width: 250 },
-    { field: "firstName", headerName: "First name", width: 200 },
-    { field: "lastName", headerName: "Last name", width: 200 },
-    { field: "email", headerName: "Email", width: 200 },
-    { field: "action", headerName: "Action", width: 160 }
-  ];
-
   return (
     <div className="allUsersContainer">
-      <div style={{ height: 423, width: "100%" }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          pageSize={16}
-          rowsPerPageOptions={[5]}
-          actions={[
-            {
-              icon: "edit",
-              tooltip: "Editar Artista",
-              //onClick: (event, rowData) =>
-                //seleccionarArtista(rowData, "Editar"),
-            },
-            {
-              icon: "delete",
-              tooltip: "Eliminar Artista",
-              //onClick: (event, rowData) =>
-                //seleccionarArtista(rowData, "Eliminar"),
-            },
-          ]}
-          options={{
-            actionsColumnIndex: -1,
-          }}
-          localization={{
-            header: {
-              actions: "Acciones",
-            },
-          }}
-        />
-      </div>
+      <Container>
+        <Table>
+          <thead>
+            <tr>
+              <th>ID_Creation</th>
+              <th>First name</th>
+              <th>Last name</th>
+              <th>Email</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row) => (
+              <tr key={row}>
+                <td>{row.id}</td>
+                <td>{row.firstName}</td>
+                <td>{row.lastName}</td>
+                <td>{row.email}</td>
+                <td>
+                  <Button
+                    className="btn-delete"
+                    variant="contained"
+                    color="info"
+                    startIcon={<DeleteIcon />}
+                  >
+                    Delete
+                  </Button>
+                  <Button
+                    className="btn-Update"
+                    variant="contained"
+                    color="success"
+                    endIcon={<SystemUpdateAltIcon />}
+                  >
+                    Update
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </Container>
     </div>
   );
 }
