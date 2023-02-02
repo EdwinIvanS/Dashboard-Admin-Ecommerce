@@ -11,7 +11,7 @@ const mainController = {
       const validate = await userSchema.findOne({ email });
 
       if (validate === null) {
-
+        console.log("aqui estoy 1 ")
         const encrypta = await encrypt(req.body.password);
         const body = { firstName, lastName, email, password: encrypta };
         const createUser = await userSchema.create(body);
@@ -25,9 +25,11 @@ const mainController = {
         });
         
       } else {
+        console.log("aqui estoy 2 ");
         handleHtttpErrors.httpError(res, "EXIST_EMAIL_REGISTER", 403);
       }
     } catch (error) {
+      console.log("aqui estoy 3 ");
       handleHtttpErrors.httpError(res, "INTERNAL_SERVER_ERROR", 500);
     }
   },
