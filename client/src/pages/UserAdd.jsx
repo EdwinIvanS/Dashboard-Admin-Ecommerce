@@ -145,7 +145,7 @@ export default function UserAdd() {
           </Alert>
         )}
 
-        <Button type="submit">Submit form</Button>
+        <Button type="submit">Crear Registro</Button>
       </Form>
     </div>
   );
