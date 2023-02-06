@@ -20,7 +20,7 @@ export const serviceAllUsers = async () => {
 };
 
 export const servicesUpdateUser = async (id, firstName, lastName, email, password) => {
-  return await axios.put(`http://localhost:3001/api/updateUser/${id}`, {
+  return axios.put(`http://localhost:3001/api/user/${id}`, {
     method: "put",
     headers: {
       Accept: "application/JSON",

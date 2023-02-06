@@ -4,9 +4,12 @@ import { Table, Container } from "reactstrap";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SystemUpdateAltIcon from "@mui/icons-material/SystemUpdateAlt";
 import Button from "@mui/material/Button";
-import { serviceAllUsers } from "../services/taskApi";
 import Modal from "react-bootstrap/Modal";
-import { serviceDeleteUser } from "../services/taskApi";
+import {
+  serviceDeleteUser,
+  serviceAllUsers,
+  servicesUpdateUser
+} from "../services/taskApi";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 
@@ -44,7 +47,7 @@ export default function AllUsers() {
 
   useEffect(() => {
     methodGet();
-  }, [modalDelete]);
+  }, [modalDelete, modalUpdate]);
 
   const handleOnclickDelete = (id) => {
     setId(id);
@@ -57,10 +60,14 @@ export default function AllUsers() {
   };
 
   const handleDelete = (e) => {
-    serviceDeleteUser(id).then((resultado) => {
-      console.log(resultado);
-    });
-    setModalDelete(false);
+    try {
+      serviceDeleteUser(id).then((resultado) => {
+        console.log(resultado);
+      });
+      setModalDelete(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleUpdate = (row) => {
@@ -71,6 +78,19 @@ export default function AllUsers() {
     setPassword(row.password);
     setModalUpdate(true);
   };
+
+  const handleSubmitUpdate = ( ) => {
+    try {
+      servicesUpdateUser(id, firstName, lastName, email, password).then(
+        (response) => {
+          console.log(response);
+        }
+      );
+      setModalUpdate(false);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className="allUsersContainer">
@@ -199,7 +219,6 @@ export default function AllUsers() {
                   type="password"
                   required
                   name="passwordConfirm"
-                  value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </Form.Group>
@@ -209,7 +228,7 @@ export default function AllUsers() {
             <Button variant="outlined" onClick={handleClose}>
               Close
             </Button>
-            <Button type="submit" variant="contained">
+            <Button type="submit" variant="contained" onClick={handleSubmitUpdate}>
               Update
             </Button>
           </Modal.Footer>

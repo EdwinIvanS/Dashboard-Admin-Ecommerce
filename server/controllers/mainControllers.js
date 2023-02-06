@@ -71,6 +71,22 @@ const mainController = {
     } catch (error) {
       return handleHtttpErrors.httpError(res, "INTERNAL_SERVER_ERROR", 500);
     }
+  },
+
+  update: async (req, res) => {
+    console.log(req.body);
+    const { firstName, lastName , email, password} = req.body;
+    try {
+      const update = await userSchema.findByIdAndUpdate(req.params.id, {firstName, lastName, email, password})
+      data = {
+        status: 200,
+        descripcion: "SUCCESSFUL_UPDATE",
+        users: req.body,
+      };
+      res.send(data);   
+    } catch (error) {
+      handleHtttpErrors.httpError(res, "INTERNAL_SERVER_ERROR", 500);
+    }
   }
 };
 
