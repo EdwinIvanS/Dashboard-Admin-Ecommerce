@@ -18,3 +18,21 @@ export const serviceAllUsers = async () => {
   return await fetch(`http://localhost:3001/api/users`)
   .then((consulta) => consulta.json());
 };
+
+export const servicesUpdateUser = async (id, firstName, lastName, email, password) => {
+  return await axios.put(`http://localhost:3001/api/updateUser/${id}`, {
+    method: "put",
+    headers: {
+      Accept: "application/JSON",
+      "Content-Type": "application/json",
+    },
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    password: password,
+  });  
+}
+
+export const serviceDeleteUser = async (id) => {
+  return await axios.delete(`http://localhost:3001/api/user/${id}`);
+}

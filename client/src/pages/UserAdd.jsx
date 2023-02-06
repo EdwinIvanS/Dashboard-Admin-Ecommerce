@@ -43,9 +43,7 @@ export default function UserAdd() {
           );
             
           console.log(await response.code);
-          event.preventDefault();
         } catch (error) {
-          event.preventDefault();
           console.log(error);
         }
       } else {

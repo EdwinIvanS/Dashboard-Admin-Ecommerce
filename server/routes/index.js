@@ -6,5 +6,6 @@ const validationUser = require('../validator/validatorUsers')
 /* GET home page. */
 router.post('/user', mainController.create);
 router.get('/users', mainController.allUsers);
+router.delete('/user/:id', mainController.delete);
 
 module.exports = router;

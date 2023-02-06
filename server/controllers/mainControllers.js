@@ -52,6 +52,25 @@ const mainController = {
       handleHtttpErrors.httpError(res, "INTERNAL_SERVER_ERROR", 500);
     }
   },
+
+  delete : async (req, res) => {
+    try {
+      const userDelete = await userSchema.findByIdAndDelete(req.params.id)
+      if (userDelete == null)
+        return handleHtttpErrors.httpError(res, "NOT_EXIST_INFOMATION_BD", 404);
+      
+        data = {
+          status: 200,
+          descripcion: "SUCCESSFUL_DELETE",
+          user : userDelete
+        }
+
+        res.send(data)
+        
+    } catch (error) {
+      return handleHtttpErrors.httpError(res, "INTERNAL_SERVER_ERROR", 500);
+    }
+  }
 };
 
 module.exports = mainController;
