@@ -1,5 +1,5 @@
 const handleHtttpErrors = require("../utils/handleHtttpErrors");
-const { encrypt, compare } = require("../utils/handlePassword");
+const { encrypt, compare, decrypt } = require("../utils/handlePassword");
 const { matchedData, body } = require("express-validator");
 const userSchema = require("../models/user");
 
@@ -41,6 +41,7 @@ const mainController = {
       if (queryAll[0] === undefined) {
         handleHtttpErrors.httpError(res, "NOT_EXIST_INFOMATION_BD", 404);
       } else {
+        
         data = {
           status: 200,
           descripcion: "SUCCESSFUL_QUERY",
@@ -66,7 +67,7 @@ const mainController = {
         }
 
         res.send(data)
-        
+
     } catch (error) {
       return handleHtttpErrors.httpError(res, "INTERNAL_SERVER_ERROR", 500);
     }

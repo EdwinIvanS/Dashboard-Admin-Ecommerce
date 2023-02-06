@@ -11,12 +11,14 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 
 export default function AllUsers() {
-  
   const [rows, setRows] = useState([]);
   const [modalDelete, setModalDelete] = useState(false);
   const [modalUpdate, setModalUpdate] = useState(false);
   const [id, setId] = useState("");
-  const [data, setData] = useState([]) 
+  const [firstName, setFistName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const methodGet = () => {
     try {
@@ -29,7 +31,7 @@ export default function AllUsers() {
             firstName: e.firstName,
             lastName: e.lastName,
             email: e.email,
-            password: e.password
+            password: e.password,
           };
           array.push(consulta);
         });
@@ -62,19 +64,11 @@ export default function AllUsers() {
   };
 
   const handleUpdate = (row) => {
-    
-    //setData(row);
-
-    setData(
-      {
-        id: row.id,
-        firstName: row.firstName,
-        lastName: row.lastName,
-        email: row.email,
-        password: row.password
-      },
-    );
-
+    setId(row.id);
+    setFistName(row.firstName);
+    setLastName(row.lastName);
+    setEmail(row.email);
+    setPassword(row.password);
     setModalUpdate(true);
   };
 
@@ -162,8 +156,7 @@ export default function AllUsers() {
                   required
                   type="text"
                   name="id"
-                  value={data.id}
-                  //onChange={(e) => setName(e.target.value)}
+                  value={id}
                 />
               </Form.Group>
 
@@ -173,8 +166,8 @@ export default function AllUsers() {
                   required
                   type="text"
                   name="firstName"
-                  value={data.firstName}
-                  //onChange={(e) => setName(e.target.value)}
+                  value={firstName}
+                  onChange={(e) => setFistName(e.target.value)}
                 />
               </Form.Group>
 
@@ -184,8 +177,8 @@ export default function AllUsers() {
                   required
                   type="text"
                   name="lastName"
-                  value={data.lastName}
-                  //onChange={(e) => setlastName(e.target.value)}
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                 />
               </Form.Group>
 
@@ -195,8 +188,8 @@ export default function AllUsers() {
                   type="email"
                   required
                   name="email"
-                  value={data.email}
-                  //onChange={(e) => setEmail(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </Form.Group>
 
@@ -206,8 +199,8 @@ export default function AllUsers() {
                   type="password"
                   required
                   name="passwordConfirm"
-                  value={data.password}
-                  //onChange={(e) => setPasswordConfirm(e.target.value)}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </Form.Group>
             </div>
