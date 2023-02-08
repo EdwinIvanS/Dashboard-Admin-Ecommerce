@@ -1,150 +1,162 @@
 import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Alert from "react-bootstrap/Alert";
+import {
+  Formulario,
+  ContenedorBotonCentrado,
+  MensajeExito,
+  MensajeError,
+} from "../styles/Formularios";
+import Input from "../components/formularios/ComponenteInput";
+import expresiones from "../utils/expresionesRegulares";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+import Button from "@mui/material/Button";
 import { serviceCreate } from "../services/taskApi";
 
 export default function UserAdd() {
-  const [validated, setValidated] = useState(false);
-  const [firstName, setName] = useState("");
-  const [lastName, setlastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
-  const [registro, setRegistro] = useState(false);
-  const [error, setError] = useState(false);
+  const [firstName, setFirstName] = useState({ campo: "", valido: null });
+  const [lastName, setlastName] = useState({ campo: "", valido: null });
+  const [email, setEmail] = useState({ campo: "", valido: null });
+  const [password, setPassword1] = useState({ campo: "", valido: null });
+  const [password2, setPassword2] = useState({ campo: "", valido: null });
+  const [formularioValido, setFormularioValido] = useState(null);
+  const [creacionExitosa, setcreacionExitosa] = useState(null);
 
-  const handleSubmit = async (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-      setValidated(true);
-    }
-    else{
-      if (
-        firstName !== "" &&
-        lastName !== "" &&
-        email !== "" &&
-        password !== "" &&
-        passwordConfirm !== "" &&
-        passwordConfirm === password
-      ) {
-        try {
-          setError(false);
-          setRegistro(true);
-          const response = await serviceCreate(
-            firstName,
-            lastName,
-            email,
-            password
-          );
-            
-          console.log(await response.code);
-        } catch (error) {
-          console.log(error);
-        }
+  const validarPassword2 = () => {
+    if (password.campo.length > 0) {
+      if (password.campo !== password2.campo) {
+        setPassword2((prevState) => {
+          return { ...prevState, valido: "false" };
+        });
       } else {
-        event.preventDefault();
-        setRegistro(false);
-        setError(true);
+        setPassword2((prevState) => {
+          return { ...prevState, valido: "true" };
+        });
       }
-    }   
+    }
+  };
+
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    if (
+      firstName.valido === "true" &&
+      lastName.valido === "true" &&
+      email.valido === "true" &&
+      password.valido === "true" &&
+      password2.valido === "true"
+    ) {
+      setFormularioValido(true);
+      try {
+        const response = await serviceCreate(
+          firstName.campo,
+          lastName.campo,
+          email.campo,
+          password.campo
+        );
+        setcreacionExitosa(response.data.status);
+      } catch (error) {
+        console.log(error);
+      }
+
+
+      setFirstName({ campo: "", valido: null });
+      setlastName({ campo: "", valido: null });
+      setEmail({ campo: "", valido: null });
+      setPassword1({ campo: "", valido: null });
+      setPassword2({ campo: "", valido: null });
+    } else {
+      setFormularioValido(false);
+    }
   };
 
   return (
     <div className="userAddContainer">
-      <Form
-        className="addUserForm"
-        noValidate
-        validated={validated}
-        onSubmit={handleSubmit}
-      >
+      <Formulario onSubmit={handleOnSubmit}>
         <div className="userAddTitle">
           <h1>Register</h1>
           <p>Create your account. It's free and only takes a minute.</p>
         </div>
-        <Form.Group as={Col} controlId="validationCustom01">
-          <Form.Label>First name</Form.Label>
-          <Form.Control
-            required
-            type="text"
-            name="firstName"
-            onChange={(e) => setName(e.target.value)}
-          />
-          <Form.Control.Feedback type="invalid">
-            Please provide a valid name.
-          </Form.Control.Feedback>
-        </Form.Group>
+        <Input
+          estado={firstName}
+          cambiarEstado={setFirstName}
+          label="First Name"
+          tipo="text"
+          name="firstName"
+          placeholder="firstName"
+          leyendaError="The name cannot contain numbers and special characters."
+          expRegular={expresiones.nombre}
+        />
 
-        <Form.Group as={Col} controlId="validationCustom02">
-          <Form.Label>Last name</Form.Label>
-          <Form.Control
-            required
-            type="text"
-            name="lastName"
-            onChange={(e) => setlastName(e.target.value)}
-          />
-          <Form.Control.Feedback type="invalid">
-            Please provide a valid name.
-          </Form.Control.Feedback>
-        </Form.Group>
+        <Input
+          estado={lastName}
+          cambiarEstado={setlastName}
+          label="Last Name"
+          tipo="text"
+          name="lastName"
+          placeholder="lastName"
+          leyendaError="The name cannot contain numbers and special characters."
+          expRegular={expresiones.nombre}
+        />
 
-        <Form.Group as={Col} controlId="validationCustom03">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            type="email"
-            required
-            name="email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Form.Control.Feedback type="invalid">
-            Please provide a valid Email.
-          </Form.Control.Feedback>
-        </Form.Group>
+        <Input
+          estado={email}
+          cambiarEstado={setEmail}
+          label="Email"
+          tipo="email"
+          name="email"
+          placeholder="Email"
+          leyendaError="Formato de correo invalido."
+          expRegular={expresiones.correo}
+        />
 
-        <Form.Group as={Col} controlId="validationCustom04">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            required
-            name="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Form.Control.Feedback type="invalid">
-            Please provide a valid Password.
-          </Form.Control.Feedback>
-        </Form.Group>
+        <Input
+          estado={password}
+          cambiarEstado={setPassword1}
+          label="Password"
+          tipo="password"
+          name="password"
+          placeholder="Password"
+          leyendaError="Formato de contraseña incorrecta."
+          expRegular={expresiones.password}
+        />
 
-        <Form.Group as={Col} controlId="validationCustom05">
-          <Form.Label>Confirm Password</Form.Label>
-          <Form.Control
-            type="password"
-            required
-            name="passwordConfirm"
-            onChange={(e) => setPasswordConfirm(e.target.value)}
-          />
-          <Form.Control.Feedback type="invalid">
-            Please provide a valid Second Password.
-          </Form.Control.Feedback>
-        </Form.Group>
+        <Input
+          estado={password2}
+          cambiarEstado={setPassword2}
+          label="Confirmar Password"
+          tipo="password"
+          name="ConfirmarPassword"
+          placeholder="Confirmar Password"
+          leyendaError="Ambas contraseñas deben ser iguales."
+          funcion={validarPassword2}
+        />
 
-        {registro && (
-          <Alert key={"success"} variant={"success"}>
-            Successful registration
-          </Alert>
+        {formularioValido === false && (
+          <MensajeError>
+            <p>
+              <ErrorOutlineIcon />
+              <b>Error:</b> Rellena el formulario correctamente.
+            </p>
+          </MensajeError>
         )}
 
-        {error && (
-          <Alert key={"danger"} variant={"danger"}>
-            Password does not match
-          </Alert>
-        )}
+        <ContenedorBotonCentrado>
+          <Button type="Submit" variant="contained">
+            Enviar
+          </Button>
 
-        <Button type="submit">Crear Registro</Button>
-      </Form>
+          {formularioValido === true && creacionExitosa === 200 && (
+            <MensajeExito>El formulario se envio exitosamente</MensajeExito>
+          )}
+
+          {/*formularioValido === true && creacionExitosa === null && (
+            <MensajeError>
+              <p>
+                <ErrorOutlineIcon />
+                <b>Error:</b> Existe un registro con el email digitado.
+              </p>
+            </MensajeError>
+          )*/}
+        </ContenedorBotonCentrado>
+      </Formulario>
     </div>
   );
 }

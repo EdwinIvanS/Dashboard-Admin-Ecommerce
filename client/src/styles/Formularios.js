@@ -3,32 +3,33 @@ import DoneAllIcon from "@mui/icons-material/DoneAll";
 import RemoveDoneIcon from "@mui/icons-material/RemoveDone";
 
 const colores = {
-    borde: "#0075FF",
-    error: "#bb2929",
-    exito: "#1ed12d"
-}
+  borde: "#0075FF",
+  error: "#bb2929",
+  exito: "#1ed12d",
+  mensajeExitoso : "#ABEBC6",
+  bordeInicial: "rgba(163, 163, 163, 0.4)",
+};
 
 const Formulario = styled.form`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-
-  @media (max-width: 800px) {
-    grid-template-columns: 1fr;
-  }
+  -webkit-box-shadow: 0px 0px 18px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 18px -10px rgba(0, 0, 0, 0.75);
+  padding: 15px 60px 30px;
 `;
 
 const Label = styled.label`
   display: block;
-  font-weight: 700;
-  padding: 10px;
   min-height: 40px;
+  text-align-last: left;
+  color: rgb(85, 84, 84);
+  font-weight: bold;
+  padding-top: 10px;
   cursor: pointer;
 
-  ${(props) => props.valido === "false" && css`
+  ${(props) =>
+    props.valido === "false" &&
+    css`
       color: ${colores.error};
     `}
-
 `;
 
 const GrupoInput = styled.div`
@@ -43,20 +44,24 @@ const Input = styled.input`
   height: 45px;
   line-height: 45px;
   padding: 0 40px 0 10px;
-  transition: 0.3s ease all;
-  border: 3px solid transparent;
-  
+  transition: 0.2s ease all;
+  border: 1px solid ${colores.bordeInicial};
+
   &:focus {
-    border: 3px solid ${colores.borde};
+    border: 2px solid ${colores.borde};
     outline: none;
     box-shadow: 3px 0px 30px rgba(163, 163, 163, 0.4);
   }
 
-  ${(props) => props.valido === "true" && css`
+  ${(props) =>
+    props.valido === "true" &&
+    css`
       border: 3px solid transparent;
     `}
 
-  ${(props) => props.valido === "false" && css`
+  ${(props) =>
+    props.valido === "false" &&
+    css`
       border: 3px solid ${colores.error} !important;
     `}
 `;
@@ -120,6 +125,7 @@ const IconoValidacionError = styled(RemoveDoneIcon)`
 
 const ContenedorBotonCentrado = styled.div`
   display: flex;
+  padding-top: 10px;
   flex-direction: column;
   align-items: center;
   grid-column: span 2;
@@ -129,8 +135,13 @@ const ContenedorBotonCentrado = styled.div`
 `;
 
 const MensajeExito = styled.p`
-  font-size: 14px;
-  color: ${colores.exito};
+  height: 45px;
+  line-height: 45px;
+  background: ${colores.mensajeExitoso};
+  padding: 0px 15px;
+  border-radius: 3px;
+  margin-top: 5px;
+  width: 100%;
 `;
 
 const MensajeError = styled.div`
@@ -140,6 +151,7 @@ const MensajeError = styled.div`
   padding: 0px 15px;
   border-radius: 3px;
   grid-column: span 2;
+  margin-top: 5px;
   p {
     margin: 0;
   }
