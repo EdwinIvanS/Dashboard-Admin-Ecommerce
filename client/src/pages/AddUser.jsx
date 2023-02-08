@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import { serviceCreate } from "../services/taskApi";
 import SendIcon from "@mui/icons-material/Send";
 
-export default function UserAdd() {
+export default function AddUser() {
   const [firstName, setFirstName] = useState({ campo: "", valido: null });
   const [lastName, setlastName] = useState({ campo: "", valido: null });
   const [email, setEmail] = useState({ campo: "", valido: null });
@@ -56,7 +56,6 @@ export default function UserAdd() {
       } catch (error) {
         console.log(error);
       }
-
 
       setFirstName({ campo: "", valido: null });
       setlastName({ campo: "", valido: null });

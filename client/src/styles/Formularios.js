@@ -37,6 +37,11 @@ const GrupoInput = styled.div`
   z-index: 90;
 `;
 
+const GrupoTextArea = styled.div`
+  position: relative;
+  z-index: 90;
+`;
+
 const Input = styled.input`
   width: 100%;
   background: #fff;
@@ -160,6 +165,31 @@ const MensajeError = styled.div`
   }
 `;
 
+const TextArea = styled.textarea`
+  border: 1px solid ${colores.bordeInicial};
+  border-radius: 3px;
+
+  &:focus {
+    border: 2px solid ${colores.borde};
+    outline: none;
+    box-shadow: 3px 0px 30px rgba(163, 163, 163, 0.4);
+  }
+
+  ${(props) =>
+    props.valido === "true" &&
+    css`
+      border: 3px solid transparent;
+    `}
+
+  ${(props) =>
+    props.valido === "false" &&
+    css`
+      border: 3px solid ${colores.error} !important;
+    `}
+`;
+
+
+
 export {
   Formulario,
   Label,
@@ -171,4 +201,6 @@ export {
   MensajeExito,
   MensajeError,
   IconoValidacionError,
+  TextArea,
+  GrupoTextArea,
 };

@@ -2,9 +2,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Sidebar } from "./components/Sidebar";
 import { Topbar } from "./components/Topbar";
 import Home from "./pages/Home";
-import UserAdd from "./pages/UserAdd";
+import AddUser from "./pages/AddUser";
 import AllUsers from "./pages/AllUsers"
-import Product from "./pages/Product";
+import AddProduct from "./pages/AddProduct";
 
 function App() {
   return (
@@ -20,15 +20,19 @@ function App() {
             <Route path="/allUsers" exact={true} element={<AllUsers />}></Route>
           </Routes>
           <Routes>
-            <Route path="/addUser" exact={true} element={<UserAdd />}></Route>
+            <Route path="/addUser" exact={true} element={<AddUser />}></Route>
           </Routes>
           <Routes>
-            <Route path="/addProducts" exact={true} element={<Product />}></Route>
+            <Route
+              path="/addProducts"
+              exact={true}
+              element={<AddProduct />}
+            ></Route>
           </Routes>
         </div>
       </BrowserRouter>
     </div>
-  )
+  );
 }
 
 export default App;
