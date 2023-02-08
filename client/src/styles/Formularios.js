@@ -18,7 +18,7 @@ const Formulario = styled.form`
 
 const Label = styled.label`
   display: block;
-  min-height: 40px;
+  min-height: 35px;
   text-align-last: left;
   color: rgb(85, 84, 84);
   font-weight: bold;
@@ -41,7 +41,7 @@ const Input = styled.input`
   width: 100%;
   background: #fff;
   border-radius: 3px;
-  height: 45px;
+  height: 40px;
   line-height: 45px;
   padding: 0 40px 0 10px;
   transition: 0.2s ease all;

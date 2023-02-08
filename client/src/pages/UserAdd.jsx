@@ -10,6 +10,7 @@ import expresiones from "../utils/expresionesRegulares";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import Button from "@mui/material/Button";
 import { serviceCreate } from "../services/taskApi";
+import SendIcon from "@mui/icons-material/Send";
 
 export default function UserAdd() {
   const [firstName, setFirstName] = useState({ campo: "", valido: null });
@@ -139,7 +140,12 @@ export default function UserAdd() {
         )}
 
         <ContenedorBotonCentrado>
-          <Button type="Submit" variant="contained">
+          <Button
+            type="Submit"
+            color="info"
+            startIcon={<SendIcon />}
+            variant="contained"
+          >
             Enviar
           </Button>
 
